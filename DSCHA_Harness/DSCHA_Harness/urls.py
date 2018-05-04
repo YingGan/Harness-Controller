@@ -65,7 +65,7 @@ urlpatterns = [
     # url(r'^api/v1/dsc/(?P<pk>[0-9]+)/removebigip/(?P<bigip_pk>[0-9]+)/$', dsc_api.DSCRemoveList.as_view()),
 
     url(r'^api/v1/bigip/$', dsc_api.BIGIPList.as_view()),
-    url(r'^api/v1/bigip/(?P<pk>[0-9]+)/$', dsc_api.BIGIPDetail.as_view()),
+    url(r'^api/v1/bigip/(?P<pk>[0-9]+)/$', dsc_api.BIGIPDetail.as_view(), name='restapi dsc detail'),
     url(r'^api/v1/vip/$', dsc_api.VIPList.as_view()),
     url(r'^api/v1/vip/(?P<pk>[0-9]+)/$', dsc_api.VIPDetail.as_view()),
     url(r'^api/v1/virtualserver/$', dsc_api.VirtualServerList.as_view()),
