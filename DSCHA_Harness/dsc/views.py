@@ -3,10 +3,12 @@ import logging
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core import serializers
 
 from lib.bigip_rest import *
 from .forms import BIGIPForm, DSCForm
 from.models import BIGIP, DSC
+
 
 logger = logging.getLogger(__name__)
 
@@ -109,14 +111,19 @@ def create_dsc(request):
 
 def view_dsc(request, dsc_id):
     dsc = DSC.objects.get(id=dsc_id)
+    apps = serializers.serialize('json', dsc.application_set.iterator(), indent=2, use_natural_foreign_keys=True)
+    dsc_bigips = serializers.serialize('json', dsc.bigip_set.iterator())
 
     # Build a list of the BIG-IP's that aren't in a DSC
-    bigips = BIGIP.objects.filter(dsc=None)
+    # free_bigips = BIGIP.objects.filter(dsc=None)
+    free_bigips = serializers.serialize('json', BIGIP.objects.filter(dsc=None))
 
     return render(request,
                   'view_dsc.html',
                   {'dsc': dsc,
-                   'free_bigips': bigips})
+                   'free_bigips': free_bigips,
+                   'apps': apps,
+                   'dsc_bigips': dsc_bigips})
 
 
 def delete_dsc(request, dsc_id, confirm):
