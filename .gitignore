@@ -1,0 +1,14 @@
+# ignore all migration files
+
+DSCHA_Harness/action/migrations/
+DSCHA_Harness/application/migrations/
+DSCHA_Harness/dashboard/migrations/
+DSCHA_Harness/dsc/migrations/
+
+# ignore db
+DSCHA_Harness/db.sqlite3
+
+# ignore debug.log
+DSCHA_Harness/debug.log
+
+
